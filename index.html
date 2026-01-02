@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VoirLaaVie | Monica Elmanta Portofolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --white:#ffffff;
+      --soft-pink:#fff5f8;
+      --dusty-pink:#e6d1d8;
+      --light-gray:#f6f6f6;
+      --ink:#3d2c32;
+      --deep:#953F5C;
+      --glass-bg: rgba(255,255,255,.65);
+      --glass-bd: rgba(255,255,255,.7);
+      --shadow: 0 12px 40px rgba(149,63,92,.08);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Inter', sans-serif; color:var(--ink);
+      background: linear-gradient(160deg, var(--white) 0%, var(--soft-pink) 50%, var(--light-gray) 100%);
+      min-height:100vh; overflow-x:hidden; animation: bgFade 15s ease-in-out infinite alternate;
+    }
+    @keyframes bgFade{
+      0%{background:linear-gradient(160deg, var(--white), var(--soft-pink))}
+      50%{background:linear-gradient(160deg, var(--light-gray), var(--soft-pink))}
+      100%{background:linear-gradient(160deg, var(--soft-pink), var(--white))}
+    }
+    a{color:inherit;text-decoration:none}
+
+    /* NAVBAR */
+    .nav-wrap{position:fixed;top:0;width:100%;display:flex;justify-content:center;z-index:50;backdrop-filter:blur(14px) saturate(160%);background:rgba(255,255,255,0.6);border-bottom:1px solid rgba(230,210,216,0.6);box-shadow:0 4px 14px rgba(149,63,92,0.08);border-bottom-left-radius:40px;border-bottom-right-radius:40px;}
+    .nav{width:min(1200px,90vw);display:flex;align-items:center;justify-content:space-between;padding:14px 20px;}
+    .brand{font-family:'Allura',cursive;font-size:1.9rem;color:var(--deep);}
+    .links{display:flex;gap:16px;}
+    .pill{padding:10px 18px;border-radius:10px;background:rgba(255,255,255,0.75);border:1px solid var(--dusty-pink);color:var(--deep);font-weight:600;transition:all .3s ease;}
+    .pill:hover{background:var(--soft-pink);box-shadow:0 4px 10px rgba(149,63,92,.15);}
+
+    /* HERO */
+    .hero{text-align:center;padding:160px 5vw 80px;}
+    .hero h1{font-family:'Allura',cursive;font-size:clamp(3rem,9vw,6rem);color:var(--deep);margin-bottom:0.4rem;text-shadow:0 2px 10px rgba(149,63,92,.08);animation:breath 6s ease-in-out infinite;}
+    @keyframes breath{0%,100%{text-shadow:0 2px 10px rgba(149,63,92,.06)}50%{text-shadow:0 4px 16px rgba(149,63,92,.12)}}
+    .hero p{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2vw,1.4rem);color:#5b4a4f;max-width:700px;margin:auto;line-height:1.7;margin-bottom:2rem;}
+    .btn{background:var(--glass-bg);padding:12px 26px;border-radius:25px;color:var(--deep);font-weight:600;border:1px solid var(--dusty-pink);box-shadow:var(--shadow);transition:all .3s ease;}
+    .btn:hover{background:var(--soft-pink);transform:translateY(-2px);}
+
+    /* SECTION BASE */
+    .section{max-width:1180px;margin:30px auto;padding:0 4vw;}
+    .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+    .section-head h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.6rem;color:var(--deep);}
+    .filters-sm{display:flex;gap:10px;}
+    .chip{padding:8px 14px;border-radius:20px;background:rgba(255,255,255,.7);border:1px solid var(--dusty-pink);color:var(--deep);font-weight:600;}
+
+    /* CARDS */
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+    .card-glass{border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(255,255,255,.55));border:1px solid var(--glass-bd);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;transition:all .3s ease;}
+    .card-glass:hover{transform:translateY(-5px);box-shadow:0 14px 30px rgba(149,63,92,.1);}
+    .thumb{aspect-ratio:16/10;background:var(--soft-pink);border-bottom:1px solid var(--dusty-pink);}
+    /* KHUSUS POSTER (A4 / portrait) */
+    .thumb-poster{
+      aspect-ratio: 210 / 297; /* A4 ratio */
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      padding: 12px; /* biar ada napas */
+      transition: transform .35s ease, filter .35s ease;
+    }
+    .card-glass:hover .thumb-poster{
+    transform: scale(1.05);
+    filter: saturate(1.05);
+    }
+
+
+    .card-body{padding:16px;}
+    .meta{display:flex;gap:8px;font-size:.9rem;color:#6a5b5f;}
+    .dot{width:6px;height:6px;border-radius:50%;background:var(--dusty-pink);}
+    .title-sm{
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: 0.01em;
+      color: var(--deep);
+      margin: 6px 0 6px;
+    }
+    .desc{font-size:.95rem;color:#5b4a4f;line-height:1.6;}
+    .card-foot{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid rgba(255,255,255,.55);}
+    .btn-follow{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:14px;background:rgba(255,255,255,.75);border:1px solid var(--dusty-pink);font-weight:700;color:var(--deep);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 4px 14px rgba(149,63,92,.08);transition:all .25s ease;}
+    .btn-follow:hover{background:var(--soft-pink);transform:translateY(-2px);}
+    .btn-follow .plus{width:22px;height:22px;border-radius:50%;background:var(--deep);color:#fff;display:inline-grid;place-items:center;font-size:14px;}
+
+    /* ECO LAYOUT */
+    .eco-section{background:var(--white);border-radius:24px;box-shadow:0 10px 40px rgba(149,63,92,.06);padding:60px 5vw;margin:60px auto;max-width:1200px;}
+    .eco-section h2{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--deep);margin-bottom:1.2rem;text-align:center;}
+    .eco-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;}
+    .eco-card{background:var(--soft-pink);border-radius:18px;padding:24px;border:1px solid var(--dusty-pink);box-shadow:var(--shadow);transition:transform .3s ease,box-shadow .3s ease;}
+    .eco-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(149,63,92,.1);}
+    .eco-card h3{color:var(--deep);font-weight:600;margin-bottom:8px;}
+    .eco-card p{color:#5b4a4f;font-size:.95rem;line-height:1.6;}
+
+    footer{text-align:center;margin:60px 0 20px;font-size:.9rem;color:#7b6c6f;}
+    @media(max-width:900px){.grid-3{grid-template-columns:1fr 1fr}}
+    @media(max-width:560px){.grid-3{grid-template-columns:1fr}.links{display:none}}
+    
+    /* HONORS */
+    .honors{max-width:1180px;margin:50px auto;padding:0 4vw}
+    .honors-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:14px}
+    .honors-head h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.8rem;color:var(--deep)}
+    .scroller{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(240px,1fr);gap:18px;overflow-x:auto;padding:6px 2px 12px;scroll-snap-type:x mandatory}
+    .scroller::-webkit-scrollbar{height:8px}
+    .scroller::-webkit-scrollbar-thumb{background:rgba(149,63,92,.15);border-radius:8px}
+    .award-card{position:relative;height:320px;border-radius:20px;overflow:hidden;scroll-snap-align:start; box-shadow:0 20px 50px rgba(149,63,92,.10)}
+    .award-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:saturate(.9) contrast(1.02)}
+    .award-glass{position:absolute;inset:auto 12px 12px 12px;border-radius:16px;padding:16px;background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.35));backdrop-filter:blur(12px);border:1px solid var(--glass-bd);box-shadow:0 12px 28px rgba(149,63,92,.12)}
+    .award-grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.0) 35%, rgba(149,63,92,.25))}
+    .award-title{color:#fff;font-weight:800;letter-spacing:.2px;text-shadow:0 2px 10px rgba(0,0,0,.25);font-size:1.2rem}
+    .award-meta{color:#f6ecf0;opacity:.9;font-size:.92rem;margin:.3rem 0 .6rem}
+    .btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.85);border:1px solid var(--glass-bd);color:var(--deep);font-weight:700;box-shadow:0 8px 18px rgba(149,63,92,.12)}
+    .btn-ghost:hover{background:var(--soft-pink)}
+    @media(max-width:560px){.award-card{height:280px}}
+
+    /* SKILLS */
+    .skills-hero{position:relative;max-width:1180px;margin:40px auto 10px;padding:80px 4vw 40px;text-align:center;background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.5));border:1px solid var(--glass-bd);box-shadow:var(--shadow);border-radius:26px;overflow:hidden}
+    .skills-hero::before{content:"SKILLS";position:absolute;inset:auto 0 10% 0;font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:.2rem;font-size:clamp(4rem,18vw,12rem);line-height:.8;color:#d9c9cf;opacity:.35;pointer-events:none}
+    .skills-eyebrow{letter-spacing:.16em;font-weight:700;color:var(--deep);opacity:.8;margin-bottom:.6rem}
+    .skills-title{font-family:'Allura',cursive;color:var(--deep);font-size:clamp(2.6rem,8vw,4.4rem);margin-bottom:1rem}
+    .skills-sub{font-family:'Cormorant Garamond',serif;color:#5b4a4f;font-size:1.1rem;max-width:720px;margin:0 auto 22px;line-height:1.7}
+    .skills-visual{display:flex;justify-content:center;margin:12px auto 0}
+    .skills-visual img{width:min(860px,90%);height:auto;filter:drop-shadow(0 24px 40px rgba(149,63,92,.10))}
+
+    /* PROJECT GROUPS */
+    .group{max-width:1180px;margin:38px auto;padding:0 4vw}
+    .group > h3{
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.6rem;
+      font-weight:600;
+      color:var(--deep);
+      margin:0 0 12px 4px;
+    }
+    /* PROJECTS SCROLLER */
+      #projects .scroller { 
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(320px, 360px);
+      gap: 18px;
+      overflow-x: auto;
+      padding: 6px 2px 16px;
+      scroll-snap-type: x mandatory;
+      }
+      .scroller .card-glass{ scroll-snap-align:start; }
+
+      
+
+    /* ANCHOR TABS */
+    .anchors{position:sticky; top:92px; z-index:30; display:flex; justify-content:center; padding:10px 0; margin:10px 0 0;}
+    .anchors-inner{display:flex; gap:10px; padding:8px; border-radius:16px; background:rgba(255,255,255,.7); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border:1px solid var(--dusty-pink); box-shadow:0 8px 20px rgba(149,63,92,.08)}
+    .anchor-chip{padding:8px 14px; border-radius:12px; border:1px solid var(--dusty-pink); color:var(--deep); font-weight:700; background:rgba(255,255,255,.9); transition:all .25s}
+    .anchor-chip:hover{background:var(--soft-pink)}
+    .anchor-chip.active{background:var(--deep); color:#fff; border-color:var(--deep)}
+
+    /* ====== ABOUT / PROFILE ====== */
+    .pro-wrap{
+      max-width:1100px;
+      margin:120px auto;
+      border-radius:28px;
+      padding:60px 6vw;
+      background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.65));
+      box-shadow:0 20px 50px rgba(149,63,92,.1);
+      display:grid;
+      grid-template-columns:1.2fr 1.6fr;
+      align-items:center;
+      gap:30px;
+    }
+    .pro-photo{
+      width:90%;
+      max-width:280px;
+      aspect-ratio:4/5;
+      border-radius:20px;
+      background:#f3dbe3 center/cover no-repeat;
+      margin:auto;
+      box-shadow:0 20px 50px rgba(149,63,92,.15);
+      transform:translateY(10px);
+    }
+    .pro-right h2{
+      font-family:'Allura',cursive;
+      font-size:clamp(2.4rem,6vw,3.6rem);
+      color:var(--deep);
+      margin-bottom:.5rem;
+    }
+    .pro-lead{font-size:1.05rem;line-height:1.7;margin-bottom:1.5rem;color:#4d3b3f;}
+    .pro-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.4rem;}
+    .pro-tags span{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.9);border:1px solid var(--dusty-pink);font-weight:700;color:var(--deep);}
+    .pro-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1.5rem;}
+    .btn-primary{background:var(--deep);color:#fff;border:1px solid var(--deep);padding:10px 16px;border-radius:14px;font-weight:700;text-decoration:none;}
+    .btn-primary:hover{transform:translateY(-2px);}
+    .btn-ghost{background:rgba(255,255,255,.9);color:var(--deep);border:1px solid var(--dusty-pink);padding:10px 14px;border-radius:14px;font-weight:700;}
+    .btn-ghost:hover{background:#ffeef5;}
+    .lang{font-weight:600;margin-top:1rem;}
+    .lang ul{margin-top:.4rem;padding-left:18px;line-height:1.7;}
+    @media(max-width:900px){
+      .pro-wrap{grid-template-columns:1fr;}
+      .pro-photo{margin-bottom:20px;}
+    }
+
+    /* Scroll offset so sections not hidden by nav */
+    .group, .section, .eco-section, .honors, .skills-hero, .pro-wrap { scroll-margin-top:120px }
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <div class="nav-wrap">
+    <div class="nav">
+      <div class="brand">VoirLaaVie</div>
+      <nav class="links">
+        <a class="pill" href="#home">Home</a>
+        <a class="pill" href="#profile">Profile</a>
+        <a class="pill" href="#skills">Skills</a>
+        <a class="pill" href="#projects">Projects</a>
+        <!-- <a class="pill" href="#honors">Honors</a> -->
+        <a class="pill" href="#eco">Eco</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <h1>VoirLaaVie</h1>
+    <p>My little world of stories — a quiet space where design and emotion intertwine.</p>
+    <a href="#projects" class="btn">Explore More</a>
+  </section>
+
+    <!-- ====== ABOUT / PROFILE ====== -->
+  <section class="pro-wrap" id="profile">
+    <div class="pro-photo" style="background-image:url('profile.jpg');"></div>
+    <div class="pro-right">
+      <h2>Monica Elmanta</h2>
+      <p class="pro-lead">
+        A 5th-semester Computer Science student at Bina Nusantara University.  
+        Monica is a fast learner with passion for design and technology, known for her aesthetics, teamwork, and problem-solving.
+      </p>
+      <div class="pro-tags">
+        <span>UI/UX</span><span>Visual Design</span><span>Wireframes</span><span>Prototyping</span><span>Storyboards</span>
+      </div>
+      <div class="pro-actions">
+        <a class="btn-primary" href="mailto:elmantamonica@gmail.com">Let’s Work Together</a>
+        <a class="btn-ghost" href="CV_Monica Elmanta.pdf" target="_blank">📄 View CV</a>
+        <a class="btn-ghost" href="https://www.linkedin.com/in/monica-elmanta-putri-924103273/" target="_blank">💼 LinkedIn</a>
+      </div>
+      <div class="lang">
+        <b>Languages:</b>
+        <ul>
+          <li>Indonesian — Native</li>
+          <li>English — Intermediate</li>
+          <li>Chinese — Beginner (Self-learning)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+        <!-- <div class="pro-contacts reveal">
+          <div class="row"><span>Email</span><a href="mailto:elmantamonica@gmail.com">elmantamonica@gmail.com</a><button class="copy" data-copy="elmantamonica@gmail.com">Copy</button></div>
+          <div class="row"><span>Phone</span><a href="tel:+62895347912661">+62 895347912661</a><button class="copy" data-copy="+62895347912661">Copy</button></div>
+          <div class="row"><span>Instagram</span><a href="https://instagram.com/monicaelmantaa" target="_blank">@monicaelmantaa</a><button class="copy" data-copy="@monicaelmantaa">Copy</button></div>
+          <div class="row"><span>Commission</span><a href="#amacherie">AmaCherie.Design</a><button class="copy" data-copy="AmaCherie.Design">Copy</button></div>
+        </div> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills-hero" id="skills">
+    <div class="skills-eyebrow">MY CAPABILITIES</div>
+    <div class="skills-title">Monica Elmanta's Skillset</div>
+    <p class="skills-sub">Expertise in UI/UX, Visual Design, Wireframes, Storyboards, User Journey Mapping, and Prototyping. Tools I love: Figma, Canva, Adobe XD (learning), Microsoft Word, Excel, PowerPoint, Photoshop.</p>
+    <div class="skills-visual">
+      <img src="images/skillshero.png" alt="Pink Tools Carousel" />
+    </div>
+  </section>
+
+
+
+  <!-- ANCHOR TABS -->
+  <div class="anchors">
+    <div class="anchors-inner">
+      <a class="anchor-chip" href="#honors" data-target="#honors">Honors</a>
+      <a class="anchor-chip" href="#projects" data-target="#projects">Project</a>
+      <a class="anchor-chip" href="#group-web" data-target="#group-web">App/Web</a>
+      <a class="anchor-chip" href="#group-poster" data-target="#group-poster">Poster/Flyer</a>
+      <a class="anchor-chip" href="#group-webDesign" data-target="#group-webDesign">Packaging</a>
+      <!-- <a class="anchor-chip" href="#group-pres" data-target="#group-pres">Decks</a> -->
+    </div>
+  </div>
+
+        <!-- HONORS -->
+  <section class="honors" id="honors">
+    <div class="honors-head">
+      <h2>Honors • Awards • Certificates</h2>
+      <div class="filters-sm"><span class="chip">All</span><span class="chip">Awards</span><span class="chip">Certifications</span></div>
+    </div>
+    <div class="scroller">
+      <article class="award-card">
+        <div class="award-bg" style="background-image:linear-gradient(0deg,rgba(255,255,255,.0),rgba(255,255,255,.0)),url('certif.png');"></div>
+        <div class="award-grad"></div>
+        <div class="award-glass">
+          <div class="award-title">Google UX Certificate</div>
+          <div class="award-meta">Coursera • 2023</div>
+          <a class="btn-ghost" href="#">See Certificate →</a>
+        </div>
+      </article>
+      <article class="award-card">
+        <div class="award-bg" style="background-image:linear-gradient(0deg,rgba(255,255,255,.0),rgba(255,255,255,.0)),url('certif.png');"></div>
+        <div class="award-grad"></div>
+        <div class="award-glass">
+          <div class="award-title">Google UX Certificate</div>
+          <div class="award-meta">Coursera • 2023</div>
+          <a class="btn-ghost" href="#">See Certificate →</a>
+        </div>
+      </article>
+      <article class="award-card">
+        <div class="award-bg" style="background-image:linear-gradient(0deg,rgba(255,255,255,.0),rgba(255,255,255,.0)),url('certif.png');"></div>
+        <div class="award-grad"></div>
+        <div class="award-glass">
+          <div class="award-title">Google UX Certificate</div>
+          <div class="award-meta">Coursera • 2023</div>
+          <a class="btn-ghost" href="#">See Certificate →</a>
+        </div>
+      </article>
+      <article class="award-card">
+        <div class="award-bg" style="background-image:linear-gradient(0deg,rgba(255,255,255,.0),rgba(255,255,255,.0)),url('certif.png');"></div>
+        <div class="award-grad"></div>
+        <div class="award-glass">
+          <div class="award-title">Google UX Certificate</div>
+          <div class="award-meta">Coursera • 2023</div>
+          <a class="btn-ghost" href="#">See Certificate →</a>
+        </div>
+      </article>
+      <article class="award-card">
+        <div class="award-bg" style="background-image:linear-gradient(0deg,rgba(255,255,255,.0),rgba(255,255,255,.0)),url('certif.png');"></div>
+        <div class="award-grad"></div>
+        <div class="award-glass">
+          <div class="award-title">Google UX Certificate</div>
+          <div class="award-meta">Coursera • 2023</div>
+          <a class="btn-ghost" href="#">See Certificate →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+ <!-- PROJECTS (Scroller) -->
+<section id="projects" class="section">
+  <div class="section-head">
+    <h2>Projects</h2>
+    <div class="filters-sm">
+      <span class="chip">All</span>
+      <span class="chip">UI/UX</span>
+      <span class="chip">Branding</span>
+    </div>
+  </div>
+
+  <!-- IMPORTANT: pakai scroller, jangan grid-3 -->
+  <div class="scroller scroller-3">
+    <!-- CARD 1 UNSAID WORDS-->
+    <article class="card-glass">
+      <div class="thumb" style="background-image:url('images/unsaidwords.png'); background-size:cover; background-position:center;"></div>
+      <div class="card-body">
+        <div class="meta"><span>Figma</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">Unsaid Words — UI/UX Case Study</h3>
+        <p class="desc">Designing a User-Centered Platform Inspired by XXXX.</p>
+      </div>
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow" href="https://www.notion.so/Momam-2d96a9c350be8067b83bc5e2b765863f?source=copy_link" target="_blank" rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+     <!-- CARD 2 SCOOL -->
+    <article class="card-glass">
+      <div class="thumb" style="background-image:url('images/scool.png'); background-size:cover; background-position:center;"></div>
+      <div class="card-body">
+        <div class="meta"><span>Figma</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">SCOOL — Digital School for Colorblind Kids</h3>
+        <p class="desc">Designing a User-Centered Platform Inspired by XXXX.</p>
+      </div>
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow" href="https://www.notion.so/Momam-2d96a9c350be8067b83bc5e2b765863f?source=copy_link" target="_blank" rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- CARD 3 KAT 9 BDM -->
+    <article class="card-glass">
+      <div class="thumb" style="background-image:url('images/kat9.png'); background-size:cover; background-position:center;"></div>
+      <div class="card-body">
+        <div class="meta"><span>Figma</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">Konser Awal Tahun 9.0 - BDM 2025</h3>
+        <p class="desc">Designing a User-Centered Platform Inspired by XXXX.</p>
+      </div>
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow" href="https://www.notion.so/Momam-2d96a9c350be8067b83bc5e2b765863f?source=copy_link" target="_blank" rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- CARD 4 -->
+    <article class="card-glass">
+      <div class="thumb" style="background-image:url('images/momam.png'); background-size:cover; background-position:center;"></div>
+      <div class="card-body">
+        <div class="meta"><span>Figma</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">Bersama Dalam Musik — Visuals</h3>
+        <p class="desc">Designing a User-Centered Platform Inspired by XXXX.</p>
+      </div>
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow" href="https://www.notion.so/Momam-2d96a9c350be8067b83bc5e2b765863f?source=copy_link" target="_blank" rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+  <!-- PROJECT GROUPS -->
+   <section class="group" id="group-web">
+    <h3>Website & Mobile App Design</h3>
+    <!-- IMPORTANT: pakai scroller, jangan grid-3 -->
+
+  <div class="scroller">
+    <!-- CARD 1 CATERING -->
+    <article class="card-glass">
+      <div class="thumb" style="background-image:url('images/catering.png'); background-size:cover; background-position:center;"></div>
+      <div class="card-body">
+        <div class="meta"><span>Figma</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">CAteriNgz — UI/UX Catering Case Study</h3>
+        <p class="desc">Designing a User-Centered Platform Inspired by XXXX.</p>
+      </div>
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow" href="https://www.notion.so/Momam-2d96a9c350be8067b83bc5e2b765863f?source=copy_link" target="_blank" rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- CARD 2 HAPPYPAW -->
+    <article class="card-glass">
+      <div class="thumb" style="background-image:url('images/happypaw.png'); background-size:cover; background-position:center;"></div>
+      <div class="card-body">
+        <div class="meta"><span>Figma</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">HappyPaw — Make your pet diary!</h3>
+        <p class="desc">Designing a User-Centered Platform Inspired by XXXX.</p>
+      </div>
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow" href="https://www.notion.so/Momam-2d96a9c350be8067b83bc5e2b765863f?source=copy_link" target="_blank" rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- CARD 3 BEESERVE-->
+    <article class="card-glass">
+      <div class="thumb" style="background-image:url('images/beeserve.png'); background-size:cover; background-position:center;"></div>
+      <div class="card-body">
+        <div class="meta"><span>Figma</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">BeeServe - Booking Room BINUS App</h3>
+        <p class="desc">Designing a User-Centered Platform Inspired by XXXX.</p>
+      </div>
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow" href="https://www.notion.so/Momam-2d96a9c350be8067b83bc5e2b765863f?source=copy_link" target="_blank" rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- CARD 4 COUNTLORIES-->
+    <article class="card-glass">
+      <div class="thumb" style="background-image:url('images/countlories.png'); background-size:cover; background-position:center;"></div>
+      <div class="card-body">
+        <div class="meta"><span>Figma</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">Countlories — Food Calories Tracker</h3>
+        <p class="desc">Designing a User-Centered Platform Inspired by XXXX.</p>
+      </div>
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow" href="https://www.notion.so/Momam-2d96a9c350be8067b83bc5e2b765863f?source=copy_link" target="_blank" rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- CARD 5 MOMAM-->
+    <article class="card-glass">
+      <div class="thumb" style="background-image:url('images/momam.png'); background-size:cover; background-position:center;"></div>
+      <div class="card-body">
+        <div class="meta"><span>Figma</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">Momam — Choose Your Food Game</h3>
+        <p class="desc">Designing a User-Centered Platform Inspired by XXXX.</p>
+      </div>
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow" href="https://www.notion.so/Momam-2d96a9c350be8067b83bc5e2b765863f?source=copy_link" target="_blank" rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+  </div>
+</section>
+
+  <!-- <section class="group" id="group-app">
+    <h3>App Redesign</h3>
+    <div class="grid-3">
+      <article class="card-glass"><div class="thumb"></div><div class="card-body"><div class="meta"><span>Mobile</span><i class="dot"></i><span>2024</span></div><h3 class="title-sm">Lifestyle Tracker</h3><p class="desc">Remap IA and polish flows; softer empty states.</p></div><div class="card-foot"><div class="stats-row"><span>👀 380</span></div><a class="btn-follow" href="#"><span>Read</span><span class="plus">+</span></a></div></article>
+      <article class="card-glass"><div class="thumb"></div><div class="card-body"><div class="meta"><span>Mobile</span><i class="dot"></i><span>2025</span></div><h3 class="title-sm">Beauty Shop</h3><p class="desc">Product card clarity, filter chips, and checkout UX.</p></div><div class="card-foot"><div class="stats-row"><span>👀 420</span></div><a class="btn-follow" href="#"><span>Case</span><span class="plus">+</span></a></div></article>
+      <article class="card-glass"><div class="thumb"></div><div class="card-body"><div class="meta"><span>Prototype</span><i class="dot"></i><span>2023</span></div><h3 class="title-sm">Travel Planner</h3><p class="desc">Card carousel with gradient overlays (ref-style).</p></div><div class="card-foot"><div class="stats-row"><span>👀 300</span></div><a class="btn-follow" href="#"><span>Demo</span><span class="plus">+</span></a></div></article>
+    </div>
+  </section> -->
+
+  <!-- Poster n Flyer -->
+  <section class="group" id="group-poster">
+    <h3>Posters & Flyers</h3>
+    <div class="scroller">
+
+        <!-- CARD 1 KAT 9 -->
+    <article class="card-glass">
+      <a href="https://www.notion.so/Konser-Awal-Tahun-9-0-2da6a9c350be80b6a24bf16454f89e30?source=copy_link"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="thumb-link">
+        <div class="thumb thumb-poster"
+          style="background-image:url('images/poster_kat.png');">
+        </div>
+      </a>
+
+      <div class="card-body">
+        <div class="meta"><span>Canva</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">Konser Awal Tahun 9.0 - Bersama Dalam Musik</h3>
+        <p class="desc">For: Bersama Dalam Musik</p>
+      </div>
+
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow"
+          href="https://www.notion.so/Konser-Awal-Tahun-9-0-2da6a9c350be80b6a24bf16454f89e30?source=copy_link"
+          target="_blank"
+          rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+
+
+    <!-- CARD 2 UWANSUM -->
+     <article class="card-glass">
+      <a href="https://www.notion.so/Konser-Awal-Tahun-9-0-2da6a9c350be80b6a24bf16454f89e30?source=copy_link"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="thumb-link">
+        <div class="thumb thumb-poster"
+          style="background-image:url('images/uwansum.png');">
+        </div>
+      </a>
+
+      <div class="card-body">
+        <div class="meta"><span>Canva</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">U Want Sum? - Entreprenuership</h3>
+        <p class="desc">For: Bersama Dalam Musik</p>
+      </div>
+
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow"
+          href="https://www.notion.so/Konser-Awal-Tahun-9-0-2da6a9c350be80b6a24bf16454f89e30?source=copy_link"
+          target="_blank"
+          rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- CARD 3 -->
+    <article class="card-glass">
+      <a href="https://www.notion.so/Konser-Awal-Tahun-9-0-2da6a9c350be80b6a24bf16454f89e30?source=copy_link"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="thumb-link">
+        <div class="thumb thumb-poster"
+          style="background-image:url('images/cancer.png');">
+        </div>
+      </a>
+
+      <div class="card-body">
+        <div class="meta"><span>Canva</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">Breast Cancer - Commision</h3>
+        <p class="desc">For: Clien</p>
+      </div>
+
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow"
+          href="https://www.notion.so/Konser-Awal-Tahun-9-0-2da6a9c350be80b6a24bf16454f89e30?source=copy_link"
+          target="_blank"
+          rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+
+    <!-- CARD 4 -->
+     <article class="card-glass">
+      <a href="https://www.notion.so/Konser-Awal-Tahun-9-0-2da6a9c350be80b6a24bf16454f89e30?source=copy_link"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="thumb-link">
+        <div class="thumb thumb-poster"
+          style="background-image:url('images/tiramisu.png');">
+        </div>
+      </a>
+
+      <div class="card-body">
+        <div class="meta"><span>Canva</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">Tiramichu Flyer - Entreprenuership</h3>
+        <p class="desc">For: Entreprenuership</p>
+      </div>
+
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow"
+          href="https://www.notion.so/Konser-Awal-Tahun-9-0-2da6a9c350be80b6a24bf16454f89e30?source=copy_link"
+          target="_blank"
+          rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+     <!-- CARD 5 -->
+     <article class="card-glass">
+      <a href="https://www.notion.so/Konser-Awal-Tahun-9-0-2da6a9c350be80b6a24bf16454f89e30?source=copy_link"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="thumb-link">
+        <div class="thumb thumb-poster"
+          style="background-image:url('images/hellobdm.png');">
+        </div>
+      </a>
+
+      <div class="card-body">
+        <div class="meta"><span>Canva</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">Hello BDM - Bersama Dalam Musik</h3>
+        <p class="desc">For: Entreprenuership</p>
+      </div>
+
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow"
+          href="https://www.notion.so/Konser-Awal-Tahun-9-0-2da6a9c350be80b6a24bf16454f89e30?source=copy_link"
+          target="_blank"
+          rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+
+    </div>
+  </section>
+
+ <!-- PROJECT GROUPS -->
+   <section class="group" id="group-webDesign">
+    <h3>Packaging Design</h3>
+    <!-- IMPORTANT: pakai scroller, jangan grid-3 -->
+
+  <div class="scroller scroller-3">
+    <!-- CARD 1 CATERING -->
+    <article class="card-glass">
+      <div class="thumb" style="background-image:url('.png'); background-size:cover; background-position:center;"></div>
+      <div class="card-body">
+        <div class="meta"><span>Figma</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">CAteriNgz — UI/UX Catering Case Study</h3>
+        <p class="desc">Designing a User-Centered Platform Inspired by XXXX.</p>
+      </div>
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow" href="https://www.notion.so/Momam-2d96a9c350be8067b83bc5e2b765863f?source=copy_link" target="_blank" rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- CARD 2 HAPPYPAW -->
+    <article class="card-glass">
+      <div class="thumb" style="background-image:url('.png'); background-size:cover; background-position:center;"></div>
+      <div class="card-body">
+        <div class="meta"><span>Figma</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">HappyPaw — Make your pet diary!</h3>
+        <p class="desc">Designing a User-Centered Platform Inspired by XXXX.</p>
+      </div>
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow" href="https://www.notion.so/Momam-2d96a9c350be8067b83bc5e2b765863f?source=copy_link" target="_blank" rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- CARD 3 BEESERVE-->
+    <article class="card-glass">
+      <div class="thumb" style="background-image:url('.png'); background-size:cover; background-position:center;"></div>
+      <div class="card-body">
+        <div class="meta"><span>Figma</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">BeeServe - Booking Room BINUS App</h3>
+        <p class="desc">Designing a User-Centered Platform Inspired by XXXX.</p>
+      </div>
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow" href="https://www.notion.so/Momam-2d96a9c350be8067b83bc5e2b765863f?source=copy_link" target="_blank" rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- CARD 4 COUNTLORIES-->
+    <article class="card-glass">
+      <div class="thumb" style="background-image:url('.png'); background-size:cover; background-position:center;"></div>
+      <div class="card-body">
+        <div class="meta"><span>Figma</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">Countlories — Food Calories Tracker</h3>
+        <p class="desc">Designing a User-Centered Platform Inspired by XXXX.</p>
+      </div>
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow" href="https://www.notion.so/Momam-2d96a9c350be8067b83bc5e2b765863f?source=copy_link" target="_blank" rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- CARD 5 MOMAM-->
+    <article class="card-glass">
+      <div class="thumb" style="background-image:url('.png'); background-size:cover; background-position:center;"></div>
+      <div class="card-body">
+        <div class="meta"><span>Figma</span><i class="dot"></i><span>2023</span></div>
+        <h3 class="title-sm">Momam — Choose Your Food Game</h3>
+        <p class="desc">Designing a User-Centered Platform Inspired by XXXX.</p>
+      </div>
+      <div class="card-foot">
+        <div class="stats-row"><span>By </span><span>Monica Elmanta</span></div>
+        <a class="btn-follow" href="https://www.notion.so/Momam-2d96a9c350be8067b83bc5e2b765863f?source=copy_link" target="_blank" rel="noopener noreferrer">
+          <span>View</span><span class="plus">+</span>
+        </a>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+  <!-- ECO -->
+  <section id="eco" class="eco-section">
+    <h2>Eco & Lifestyle Designs</h2>
+    <div class="eco-grid">
+      <div class="eco-card"><h3>Energy Efficiency</h3><p>Designing with sustainability in mind—balancing minimal energy use and natural lighting harmony.</p></div>
+      <div class="eco-card"><h3>Soft Material Curation</h3><p>Textures that bring warmth and comfort to modern living spaces while keeping the visuals elegant.</p></div>
+      <div class="eco-card"><h3>Future Care Concepts</h3><p>Design systems that sustain timeless aesthetics, focusing on emotional and visual serenity.</p></div>
+    </div>
+  </section>
+
+  <footer>© 2025 Monica Elmanta — VoirLaaVie</footer>
+
+  <script>
+    // Fade-in for .reveal
+    const rvs = document.querySelectorAll('.reveal');
+    const ioA = new IntersectionObserver((es)=> {
+      es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
+    }, {threshold: .12});
+    rvs.forEach(n=>ioA.observe(n));
+
+    // Copy buttons
+    document.querySelectorAll('.copy').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        navigator.clipboard.writeText(btn.dataset.copy||'').then(()=>{
+          const old = btn.textContent; btn.textContent='Copied!'; 
+          setTimeout(()=>btn.textContent=old, 900);
+        });
+      });
+    });
+
+    // Anchor highlight while scrolling
+    const chips = document.querySelectorAll('.anchor-chip');
+    const targets = [...chips].map(c => document.querySelector(c.dataset.target)).filter(Boolean);
+    const setActive = (id)=>{ chips.forEach(c=>c.classList.toggle('active', c.getAttribute('href') === '#' + id)); }
+    const ioB = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ setActive(e.target.id); } });
+    }, {rootMargin:'-30% 0px -60% 0px', threshold:0});
+    targets.forEach(t=>ioB.observe(t));
+  </script>
+</body>
+</html>
