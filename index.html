@@ -153,6 +153,45 @@
       }
       .scroller .card-glass{ scroll-snap-align:start; }
 
+      /* MOBILE: tampil 3–4 card kecil, tetep bisa geser */
+      /* MOBILE: tampil 3–4 card kecil, tetep bisa geser */
+      @media (max-width: 640px){
+        .scroller{
+          gap: 12px;
+          padding: 6px 2px 14px;
+          grid-auto-columns: 140px; /* ubah ini kalau mau lebih kecil/besar */
+        }
+
+        .card-body{ padding: 12px; }
+        .title-sm{ font-size: 0.95rem; }
+        .desc{ font-size: 0.85rem; }
+        }
+        .scroller{
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+        .scroller::-webkit-scrollbar{ display:none; }
+        .scroller .card-glass{ scroll-snap-align: start; }
+
+
+
+      /* TABLET: 2 card kelihatan */
+      @media (min-width: 641px) and (max-width: 1024px){
+        .scroller{
+          grid-auto-columns: calc((100% - 18px) / 2);
+        }
+      }
+
+      /* DESKTOP: kalau mau 3 card */
+      @media (min-width: 1025px){
+        .scroller.scroller-3{
+          grid-auto-columns: calc((100% - 36px) / 3);
+        }
+        .scroller.scroller-4{
+          grid-auto-columns: calc((100% - 54px) / 4);
+        }
+      }
       
 
     /* ANCHOR TABS */
@@ -206,11 +245,67 @@
       .pro-photo{margin-bottom:20px;}
     }
 
+   /* ===== MOBILE FIX (biar ga jadi kolom sempit) ===== */
+    @media (max-width: 600px) {
+      body { overflow-x: hidden; }
+
+      /* section/group jangan nyempitin */
+      .section, .group, .honors, .eco-section {
+        max-width: 100% !important;
+        margin: 24px auto !important;
+        padding: 0 16px !important;
+      }
+
+      /* NAV biar ga kepotong */
+      .nav { width: 100% !important; padding: 12px 14px !important; }
+
+      /* Head (judul + filter) biar rapi di mobile */
+      .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .filters-sm { width: 100%; overflow-x: auto; padding-bottom: 6px; }
+      .filters-sm::-webkit-scrollbar { display: none; }
+
+      /* SCROLLER: bikin 1.2 card keliatan (manis), bukan mini */
+      #projects .scroller,
+      .group .scroller {
+        grid-auto-columns: 78vw !important;   /* <= ini kuncinya */
+        gap: 14px !important;
+        padding: 6px 2px 14px !important;
+      }
+
+      /* Card biar nyaman */
+      .card-glass { border-radius: 18px; }
+
+      /* Thumb biar proporsional */
+      .thumb { aspect-ratio: 16/10; }
+    }
+
+    /* optional: buat super kecil */
+    @media (max-width: 380px) {
+      #projects .scroller,
+      .group .scroller {
+        grid-auto-columns: 86vw !important;
+      }
+    }
+
+
+
     /* Scroll offset so sections not hidden by nav */
     .group, .section, .eco-section, .honors, .skills-hero, .pro-wrap { scroll-margin-top:120px }
   </style>
 </head>
 <body>
+  <body>
+  <div class="desktop-scale">
+    <!-- SEMUA KONTEN KAMU dari navbar sampai footer taro di sini -->
+  </div>
+</body>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <!-- NAV -->
   <div class="nav-wrap">
     <div class="nav">
@@ -235,7 +330,7 @@
 
     <!-- ====== ABOUT / PROFILE ====== -->
   <section class="pro-wrap" id="profile">
-    <div class="pro-photo" style="background-image:url('profile.jpg');"></div>
+    <div class="pro-photo" style="background-image:url('images/profile.jpg');"></div>
     <div class="pro-right">
       <h2>Monica Elmanta</h2>
       <p class="pro-lead">
@@ -247,7 +342,7 @@
       </div>
       <div class="pro-actions">
         <a class="btn-primary" href="mailto:elmantamonica@gmail.com">Let’s Work Together</a>
-        <a class="btn-ghost" href="CV_Monica Elmanta.pdf" target="_blank">📄 View CV</a>
+        <a class="btn-ghost" href="images/CV_Monica Elmanta.pdf" target="_blank">📄 View CV</a>
         <a class="btn-ghost" href="https://www.linkedin.com/in/monica-elmanta-putri-924103273/" target="_blank">💼 LinkedIn</a>
       </div>
       <div class="lang">
@@ -302,7 +397,7 @@
     </div>
     <div class="scroller">
       <article class="award-card">
-        <div class="award-bg" style="background-image:linear-gradient(0deg,rgba(255,255,255,.0),rgba(255,255,255,.0)),url('certif.png');"></div>
+        <div class="award-bg" style="background-image:linear-gradient(0deg,rgba(255,255,255,.0),rgba(255,255,255,.0)),url('images/certif.png');"></div>
         <div class="award-grad"></div>
         <div class="award-glass">
           <div class="award-title">Google UX Certificate</div>
@@ -311,7 +406,7 @@
         </div>
       </article>
       <article class="award-card">
-        <div class="award-bg" style="background-image:linear-gradient(0deg,rgba(255,255,255,.0),rgba(255,255,255,.0)),url('certif.png');"></div>
+        <div class="award-bg" style="background-image:linear-gradient(0deg,rgba(255,255,255,.0),rgba(255,255,255,.0)),url('images/certif.png');"></div>
         <div class="award-grad"></div>
         <div class="award-glass">
           <div class="award-title">Google UX Certificate</div>
@@ -320,7 +415,7 @@
         </div>
       </article>
       <article class="award-card">
-        <div class="award-bg" style="background-image:linear-gradient(0deg,rgba(255,255,255,.0),rgba(255,255,255,.0)),url('certif.png');"></div>
+        <div class="award-bg" style="background-image:linear-gradient(0deg,rgba(255,255,255,.0),rgba(255,255,255,.0)),url('images/certif.png');"></div>
         <div class="award-grad"></div>
         <div class="award-glass">
           <div class="award-title">Google UX Certificate</div>
@@ -329,7 +424,7 @@
         </div>
       </article>
       <article class="award-card">
-        <div class="award-bg" style="background-image:linear-gradient(0deg,rgba(255,255,255,.0),rgba(255,255,255,.0)),url('certif.png');"></div>
+        <div class="award-bg" style="background-image:linear-gradient(0deg,rgba(255,255,255,.0),rgba(255,255,255,.0)),url('images/certif.png');"></div>
         <div class="award-grad"></div>
         <div class="award-glass">
           <div class="award-title">Google UX Certificate</div>
@@ -338,7 +433,7 @@
         </div>
       </article>
       <article class="award-card">
-        <div class="award-bg" style="background-image:linear-gradient(0deg,rgba(255,255,255,.0),rgba(255,255,255,.0)),url('certif.png');"></div>
+        <div class="award-bg" style="background-image:linear-gradient(0deg,rgba(255,255,255,.0),rgba(255,255,255,.0)),url('images/certif.png');"></div>
         <div class="award-grad"></div>
         <div class="award-glass">
           <div class="award-title">Google UX Certificate</div>
